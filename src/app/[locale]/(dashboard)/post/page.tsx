@@ -6,14 +6,18 @@ import { useEffect, useState } from 'react'
 import { PostServices } from '@/libs/api/post/post.service'
 import { Post } from '@/libs/api/post/get-all-post.type'
 import { useRouter } from 'next/navigation'
+import Dropdown from '@/components/Dropdown'
+import { CATEGORY } from '@/constants/constants'
+import { PostCategoryType } from '@/types/post-category.enum'
 
 export default function Home() {
   const [posts, setPosts] = useState<Post[]>([])
+  const [category, setCategory] = useState('')
   const router = useRouter()
 
-  const fetchPost = async () => {
+  const fetchPost = async (category: string) => {
     try {
-      const postList = await PostServices.getAllPost('Food', 100, 0)
+      const postList = await PostServices.getAllPost(category as PostCategoryType, 100, 0)
       setPosts(postList)
       console.log({ postList })
     } catch (error) {
@@ -25,9 +29,13 @@ export default function Home() {
     router.push(`/post/${postId}`)
   }
 
+  const handleSelect = (category: string) => {
+    setCategory(category)
+  }
+
   useEffect(() => {
-    fetchPost()
-  }, [])
+    fetchPost(category)
+  }, [category])
 
   return (
     <div className="w-full min-h-[calc(100vh-60px)]  overflow-hidden flex flex-col px-4 lg:px-[40px] bg-gray-100">
@@ -48,7 +56,7 @@ export default function Home() {
           />
         </svg>
         <div className="flex flex-row items-center gap-1.5">
-          <h2>Category</h2>
+          <Dropdown options={CATEGORY} onSelect={handleSelect} />
           <CustomButton variant="success">
             <p className="text-white font-bold">Create +</p>
           </CustomButton>

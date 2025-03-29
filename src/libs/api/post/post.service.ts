@@ -13,9 +13,11 @@ export const PostServices = {
     offset = 0
   ): Promise<Post[]> => {
     try {
-      const response = await apiClient.get<ApiResponse<Post[]>>(
-        `/posts?category=${category}&limit=${limit}&offset=${offset}`
-      )
+      const url = category
+        ? `/posts?category=${category}&limit=${limit}&offset=${offset}`
+        : `/posts?limit=${limit}&offset=${offset}`
+
+      const response = await apiClient.get<ApiResponse<Post[]>>(url)
       return response.data.data
     } catch (error) {
       console.error('Error fetching todos:', error)
