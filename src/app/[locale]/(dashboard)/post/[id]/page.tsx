@@ -9,13 +9,13 @@ import { PostServices } from '@/libs/api/post/post.service'
 import { GetPostWithComment } from '@/libs/api/post/get-post-with-comment.type'
 import Image from 'next/image'
 import { timeAgo } from '@/utils/convertTime'
+import { useComment } from '../hooks/useComment'
 
-function page({ params }: { params: Promise<{ id: string }> }) {
+function Page({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params)
   const [postWithComment, setPostWithComment] = useState<GetPostWithComment | null>(null)
-  const [addComment, setAddComment] = useState(false)
-  const [comment, setComment] = useState('')
   const router = useRouter()
+
   const handleOnclick = () => {
     router.back()
   }
@@ -26,9 +26,28 @@ function page({ params }: { params: Promise<{ id: string }> }) {
       const postWithComment = await PostServices.getPostWithComment(postId)
       setPostWithComment(postWithComment)
     } catch (error) {
-    } finally {
+      console.error('Error fetching post:', error)
     }
   }
+
+  const handleCommentAdded = async () => {
+    // Refresh post comments after adding a new comment
+    await fetchPostWithComment(id)
+  }
+
+  const {
+    comment,
+    isAddingComment,
+    isSubmitting,
+    error,
+    openCommentBox,
+    closeCommentBox,
+    handleCommentChange,
+    submitComment,
+  } = useComment({
+    postId: id,
+    onCommentAdded: handleCommentAdded,
+  })
 
   useEffect(() => {
     fetchPostWithComment(id)
@@ -82,31 +101,27 @@ function page({ params }: { params: Promise<{ id: string }> }) {
               <p className="text-sm text-[#191919] mt-4">{postWithComment.content}</p>
               <CommentComponent count={postWithComment.comments.length} />
             </section>
-            <CustomButton
-              variant="outline"
-              className="mt-[28px] w-4"
-              onClick={() => {
-                setAddComment(true)
-              }}
-            >
-              Add Comment
-            </CustomButton>
-            {addComment && (
+
+            {!isAddingComment && (
+              <CustomButton variant="outline" className="mt-[28px]" onClick={openCommentBox}>
+                Add Comment
+              </CustomButton>
+            )}
+
+            {isAddingComment && (
               <div className="mt-5">
                 <textarea
                   placeholder="What's on your mind..."
                   value={comment}
-                  onChange={e => setComment(e.target.value)}
+                  onChange={handleCommentChange}
                   className="w-full px-3 py-2 border border-[#DADADA] rounded-lg mb-4 min-h-[120px] resize-none focus:outline-none focus:ring-2 focus:ring-green-500"
                 />
-                <div className="w-full  flex flex-row justify-end gap-3">
+                {error && <p className="text-red-500 mb-4">{error}</p>}
+                <div className="w-full flex flex-row justify-end gap-3">
                   <CustomButton
                     className="w-full lg:w-fit"
                     variant="outline"
-                    onClick={() => {
-                      setAddComment(false)
-                      setComment('')
-                    }}
+                    onClick={closeCommentBox}
                   >
                     Cancel
                   </CustomButton>
@@ -114,19 +129,21 @@ function page({ params }: { params: Promise<{ id: string }> }) {
                   <CustomButton
                     variant="primary"
                     className="w-full lg:w-fit"
-                    onClick={() => {}}
-                    disabled={!comment}
+                    onClick={() => {
+                      submitComment(postWithComment.id)
+                    }}
+                    disabled={isSubmitting || !comment.trim()}
                   >
-                    Post
+                    {isSubmitting ? 'Posting...' : 'Post'}
                   </CustomButton>
                 </div>
               </div>
             )}
           </main>
           <section className="mt-4 flex flex-col gap-6">
-            {postWithComment.comments.map((item, index) => {
-              return <CardComment key={index} comment={item} />
-            })}
+            {postWithComment.comments.map((item, index) => (
+              <CardComment key={index} comment={item} />
+            ))}
           </section>
         </>
       ) : (
@@ -136,4 +153,4 @@ function page({ params }: { params: Promise<{ id: string }> }) {
   )
 }
 
-export default page
+export default Page
