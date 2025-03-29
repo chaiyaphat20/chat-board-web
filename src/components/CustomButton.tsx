@@ -57,14 +57,11 @@ const CustomButton: React.FC<CustomButtonProps> = ({
       hover:bg-[#3D8C57]
     `,
     outline: `
-      bg-transparent 
-      outline 
-      outline-2 
-      outline-[#49A569] 
-      text-[#49A569] 
+      bg-transparent
+      border-1
+      border-[#49A569]
+      text-[#49A569]
       hover:bg-[#49A569]/10
-      outline-offset-[-2px]
-     
     `,
   }
 
@@ -75,7 +72,7 @@ const CustomButton: React.FC<CustomButtonProps> = ({
       className={`
         ${baseStyles}
         ${variantStyles[variant]}
-        min-w-[105px]
+          min-w-[105px]
         h-fit
         w-fit
         ${className}

@@ -33,7 +33,7 @@ function page({ params }: { params: Promise<{ id: string }> }) {
   }, [id])
 
   return (
-    <div className="py-[24.5px] px-4 bg-white lg:px-[100px]">
+    <div className="py-[24.5px] px-4 bg-white min-h-[calc(100vh-60px)] lg:px-[100px]">
       {postWithComment ? (
         <>
           <main>
