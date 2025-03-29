@@ -74,6 +74,7 @@ const CustomButton: React.FC<CustomButtonProps> = ({
         ${baseStyles}
         ${variantStyles[variant]}
         ${className}
+        min-w-[105]
       `}
     >
       {children}
