@@ -2,23 +2,23 @@ import React, { useState } from 'react'
 import CustomButton from '@/components/CustomButton'
 import Dropdown from '@/components/Dropdown'
 import { CATEGORY } from '@/constants/constants'
+import { PostCategory, PostCategoryType } from '@/types/post-category.enum'
 
 interface CreatePostModalProps {
   isOpen: boolean
   onClose: () => void
-  onPost?: (postData: { community: string; title: string; content: string }) => void
+  onPost?: (postData: { community: PostCategoryType; title: string; content: string }) => void
 }
 
 const CreatePostModal: React.FC<CreatePostModalProps> = ({ isOpen, onClose, onPost }) => {
-  const [community, setCommunity] = useState('')
+  const [community, setCommunity] = useState<PostCategoryType | null>(null)
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
 
   const handlePost = () => {
-    if (onPost) {
+    if (onPost && community) {
       onPost({ community, title, content })
     }
-    onClose()
   }
 
   if (!isOpen) return null
@@ -56,7 +56,7 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({ isOpen, onClose, onPo
         <div className="mb-4">
           <Dropdown
             options={CATEGORY}
-            onSelect={value => setCommunity(value)}
+            onSelect={value => setCommunity(value as PostCategory)}
             placeholder="Choose a community"
           />
         </div>

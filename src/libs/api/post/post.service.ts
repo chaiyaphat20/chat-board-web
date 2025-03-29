@@ -5,6 +5,7 @@ import { Post } from './get-all-post.type'
 import { ApiResponse } from '@/types/api.types'
 import { PostCategoryType } from '@/types/post-category.enum'
 import { GetPostWithComment } from './get-post-with-comment.type'
+import { CreatePostBody, CreatePostResponse } from './create-post.type'
 
 export const PostServices = {
   getAllPost: async (
@@ -29,6 +30,15 @@ export const PostServices = {
       const response = await apiClient.get<ApiResponse<GetPostWithComment>>(
         `/posts/${postId}/with-comments`
       )
+      return response.data.data
+    } catch (error) {
+      console.error('Error fetching todos:', error)
+      throw error
+    }
+  },
+  createPost: async (body: CreatePostBody): Promise<CreatePostResponse> => {
+    try {
+      const response = await apiClient.post<ApiResponse<CreatePostResponse>>(`/posts`, body)
       return response.data.data
     } catch (error) {
       console.error('Error fetching todos:', error)
