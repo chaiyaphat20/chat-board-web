@@ -13,6 +13,8 @@ import { timeAgo } from '@/utils/convertTime'
 function page({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params)
   const [postWithComment, setPostWithComment] = useState<GetPostWithComment | null>(null)
+  const [addComment, setAddComment] = useState(false)
+  const [comment, setComment] = useState('')
   const router = useRouter()
   const handleOnclick = () => {
     router.back()
@@ -80,9 +82,46 @@ function page({ params }: { params: Promise<{ id: string }> }) {
               <p className="text-sm text-[#191919] mt-4">{postWithComment.content}</p>
               <CommentComponent count={postWithComment.comments.length} />
             </section>
-            <CustomButton variant="outline" className="mt-[28px] w-4">
+            <CustomButton
+              variant="outline"
+              className="mt-[28px] w-4"
+              onClick={() => {
+                setAddComment(true)
+              }}
+            >
               Add Comment
             </CustomButton>
+            {addComment && (
+              <div className="mt-5">
+                <textarea
+                  placeholder="What's on your mind..."
+                  value={comment}
+                  onChange={e => setComment(e.target.value)}
+                  className="w-full px-3 py-2 border border-[#DADADA] rounded-lg mb-4 min-h-[120px] resize-none focus:outline-none focus:ring-2 focus:ring-green-500"
+                />
+                <div className="w-full  flex flex-row justify-end gap-3">
+                  <CustomButton
+                    className="w-full lg:w-fit"
+                    variant="outline"
+                    onClick={() => {
+                      setAddComment(false)
+                      setComment('')
+                    }}
+                  >
+                    Cancel
+                  </CustomButton>
+
+                  <CustomButton
+                    variant="primary"
+                    className="w-full lg:w-fit"
+                    onClick={() => {}}
+                    disabled={!comment}
+                  >
+                    Post
+                  </CustomButton>
+                </div>
+              </div>
+            )}
           </main>
           <section className="mt-4 flex flex-col gap-6">
             {postWithComment.comments.map((item, index) => {
