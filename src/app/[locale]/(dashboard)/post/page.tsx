@@ -38,7 +38,7 @@ export default function Home() {
   }, [category])
 
   return (
-    <div className="w-full min-h-[calc(100vh-60px)]  overflow-hidden flex flex-col px-4 lg:px-[40px] bg-gray-100">
+    <div className="w-full min-h-[calc(100vh-60px)]  overflow-hidden flex flex-col px-4 lg:px-[40px] bg-[#BBC2C0] ">
       <header className="min-h-[40px] flex items-center mt-[48px] justify-between bg-red top-[60px]">
         <svg
           width="18"
@@ -56,17 +56,19 @@ export default function Home() {
           />
         </svg>
         <div className="flex flex-row items-center gap-1.5">
-          <Dropdown options={CATEGORY} onSelect={handleSelect} />
+          <Dropdown options={CATEGORY} onSelect={handleSelect} isHideBg placeholder="Community" />
           <CustomButton variant="success">
             <p className="text-white font-bold">Create +</p>
           </CustomButton>
         </div>
       </header>
       {/* Section ที่สามารถ Scroll ได้ */}
-      <section className="flex-1  rounded-2xl w-full  bg-white mt-6">
+      <section className="flex-1  rounded-2xl w-full  bg-white mt-6 ">
         {posts.map((post, index) => {
           return (
             <CardChat
+              isRoundFirst={index === 0}
+              isRoundLast={index === posts.length - 1}
               key={index}
               post={post}
               onClick={() => {

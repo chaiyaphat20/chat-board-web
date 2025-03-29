@@ -6,11 +6,9 @@ interface MenuItemProps {
   icon: React.ReactNode
 }
 
-// Sidebar Component
 const SideMenu: React.FC = () => {
   const [selectedMenuItem, setSelectedMenuItem] = useState('home')
 
-  // Menu items with SVG icons
   const menuItems: MenuItemProps[] = [
     {
       id: 'home',
@@ -57,7 +55,7 @@ const SideMenu: React.FC = () => {
   ]
 
   return (
-    <aside className="lg:min-w-[280px] lg:fixed  lg:left-0  lg:visible  invisible w-0 bg-gray-100 h-full min-h-[calc(100vh-60px)]">
+    <aside className="lg:min-w-[280px] lg:fixed  lg:left-0  lg:visible  invisible w-0 bg-[#BBC2C0] h-full min-h-[calc(100vh-60px)]">
       <div className="mt-8">
         {menuItems.map(item => (
           <div
@@ -65,11 +63,21 @@ const SideMenu: React.FC = () => {
             onClick={() => setSelectedMenuItem(item.id)}
             className={`
               flex gap-4 px-[28px] cursor-pointer p-4
-              ${selectedMenuItem === item.id ? 'bg-gray-200' : 'hover:bg-gray-200'}
+              
             `}
           >
             {item.icon}
-            <h3>{item.label}</h3>
+            <h3
+              className={`
+    ${
+      selectedMenuItem === item.id
+        ? 'text-[#243831] font-semibold'
+        : 'text-gray-600 hover:text-[#243831]'
+    }
+  `}
+            >
+              {item.label}
+            </h3>
           </div>
         ))}
       </div>

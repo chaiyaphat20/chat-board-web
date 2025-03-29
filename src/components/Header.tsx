@@ -8,9 +8,9 @@ const HeaderMenu = () => {
   const [isOpen, setIsOpen] = useState(false)
 
   return (
-    <div className="w-full fixed top-0 left-0">
-      <header className="flex items-center justify-between p-4 bg-gray-800 text-white ">
-        <h1 className="text-lg font-bold">My Website</h1>
+    <div className="w-full fixed top-0 left-0 z-10">
+      <header className="flex items-center justify-between p-4 bg-[#243831] text-white ">
+        <h1 className="text-lg font-bold">a Board</h1>
         <button onClick={() => setIsOpen(true)} className=" lg:hidden">
           <Menu size={20} />
         </button>
@@ -24,7 +24,7 @@ const HeaderMenu = () => {
             animate={{ opacity: 0.5 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 bg-black z-40"
+            className="fixed inset-0 bg-black z-50"
             onClick={() => setIsOpen(false)}
           />
         )}
@@ -38,7 +38,7 @@ const HeaderMenu = () => {
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
             transition={{ duration: 0.3 }}
-            className="fixed top-0 right-0 h-full w-64 bg-white shadow-lg p-4 z-50"
+            className="fixed top-0 right-0 h-full w-64 bg-white shadow-lg p-4 z-[999]"
           >
             <button
               onClick={() => setIsOpen(false)}
