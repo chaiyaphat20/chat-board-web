@@ -2,7 +2,7 @@ import React, { ButtonHTMLAttributes, CSSProperties } from 'react'
 import { ClipLoader } from 'react-spinners'
 
 interface CustomButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'secondary' | 'success'
+  variant?: 'primary' | 'secondary' | 'success' | 'outline'
   loading?: boolean
 }
 
@@ -18,45 +18,52 @@ const CustomButton: React.FC<CustomButtonProps> = ({
   ...rest
 }) => {
   const baseStyles = `
-  w-full
-  font-semibold
-  text-base
-  py-[10px]
-  px-4
-  rounded-lg
-  transition-colors
-  duration-300
-  focus:outline-none
-  disabled:opacity-50
-  disabled:cursor-not-allowed
-  select-none
-  cursor-pointer
-  flex-row
-  flex
-  gap-2
-  items-center
-  justify-center
-`
+    font-semibold
+    text-base
+    py-[10px]
+    px-4
+    rounded-lg
+    transition-colors
+    duration-300
+    focus:outline-none
+    disabled:opacity-50
+    disabled:cursor-not-allowed
+    select-none
+    cursor-pointer
+    flex-row
+    flex
+    gap-2
+    items-center
+    justify-center
+  `
 
   // Variant-specific styles
   const variantStyles = {
     primary: `
-      bg-[#2B5F44] 
-      text-white 
-      hover:bg-[#1f4a33] 
+      bg-[#2B5F44]
+      text-white
+      hover:bg-[#1f4a33]
       focus:ring-[#2B5F44]
     `,
     secondary: `
-      bg-gray-500 
-      text-white 
-      hover:bg-gray-600 
+      bg-gray-500
+      text-white
+      hover:bg-gray-600
       focus:ring-gray-500
     `,
     success: `
-      bg-[#49A569] 
-      text-white 
-      hover:bg-[#3D8C57] 
-  `,
+      bg-[#49A569]
+      text-white
+      hover:bg-[#3D8C57]
+    `,
+    outline: `
+      bg-transparent
+      border-2
+      border-[#49A569]
+      text-[#49A569]
+      hover:bg-[#49A569]/10
+      w-fit
+    `,
   }
 
   return (
@@ -67,7 +74,6 @@ const CustomButton: React.FC<CustomButtonProps> = ({
         ${baseStyles}
         ${variantStyles[variant]}
         ${className}
-        
       `}
     >
       {children}
