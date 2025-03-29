@@ -29,7 +29,7 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({ isOpen, onClose, onPo
       onClick={onClose}
     >
       <div
-        className="bg-white rounded-lg w-[500px] p-6 shadow-xl"
+        className="bg-white rounded-lg max-w-[500px] p-6 mx-4 shadow-xl"
         onClick={e => e.stopPropagation()}
       >
         <div className="mb-6 items-center justify-between flex flex-row">
@@ -76,13 +76,14 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({ isOpen, onClose, onPo
           className="w-full px-3 py-2 border border-[#DADADA] rounded-lg mb-4 min-h-[120px] resize-none focus:outline-none focus:ring-2 focus:ring-green-500"
         />
 
-        <div className="flex justify-end space-x-4">
-          <CustomButton variant="outline" onClick={onClose}>
+        <div className="flex flex-col lg:flex-row justify-end space-y-4 lg:space-x-4">
+          <CustomButton className="w-full lg:w-fit" variant="outline" onClick={onClose}>
             Cancel
           </CustomButton>
 
           <CustomButton
             variant="primary"
+            className="w-full lg:w-fit"
             onClick={handlePost}
             disabled={!community || !title || !content}
           >
