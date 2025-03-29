@@ -8,6 +8,7 @@ export function usePosts() {
   const [posts, setPosts] = useState<Post[]>([])
   const [category, setCategory] = useState('')
   const [showModal, setShowModal] = useState(false)
+  const [search, setSearch] = useState('')
   const fetchPost = async (category: string) => {
     try {
       const postList = await PostServices.getAllPost(category as PostCategoryType, 100, 0)
@@ -37,5 +38,21 @@ export function usePosts() {
     fetchPost(category)
   }, [category])
 
-  return { posts, category, setCategory, createPost, showModal, setShowModal }
+  const postFilter = posts.filter(item => {
+    if (search.trim().length >= 2) {
+      return item.topic.toLowerCase().includes(search.toLowerCase())
+    }
+    return true
+  })
+
+  return {
+    postFilter,
+    category,
+    setCategory,
+    createPost,
+    showModal,
+    setShowModal,
+    setSearch,
+    search,
+  }
 }

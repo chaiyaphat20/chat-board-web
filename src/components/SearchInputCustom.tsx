@@ -1,8 +1,6 @@
 import React, { InputHTMLAttributes } from 'react'
 
-interface SearchInputProps extends InputHTMLAttributes<HTMLInputElement> {
-  // You can add additional props if needed
-}
+interface SearchInputProps extends InputHTMLAttributes<HTMLInputElement> {}
 
 const SearchInputCustom: React.FC<SearchInputProps> = ({ className, ...rest }) => {
   return (

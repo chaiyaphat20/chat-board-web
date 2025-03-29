@@ -17,22 +17,7 @@ function Page({ params }: { params: Promise<{ id: string }> }) {
   const [postWithComment, setPostWithComment] = useState<GetPostWithComment | null>(null)
   const router = useRouter()
 
-  const handleOnclick = () => {
-    router.back()
-  }
-
-  const fetchPostWithComment = async (postId: string) => {
-    try {
-      if (!postId) return
-      const postWithComment = await PostServices.getPostWithComment(postId)
-      setPostWithComment(postWithComment)
-    } catch (error) {
-      console.error('Error fetching post:', error)
-    }
-  }
-
   const handleCommentAdded = async () => {
-    // Refresh post comments after adding a new comment
     await fetchPostWithComment(id)
   }
 
@@ -49,6 +34,20 @@ function Page({ params }: { params: Promise<{ id: string }> }) {
     postId: id,
     onCommentAdded: handleCommentAdded,
   })
+
+  const handleOnclick = () => {
+    router.back()
+  }
+
+  const fetchPostWithComment = async (postId: string) => {
+    try {
+      if (!postId) return
+      const postWithComment = await PostServices.getPostWithComment(postId)
+      setPostWithComment(postWithComment)
+    } catch (error) {
+      console.error('Error fetching post:', error)
+    }
+  }
 
   useEffect(() => {
     fetchPostWithComment(id)
