@@ -15,6 +15,7 @@ import CreatePostModal from './components/CreatePostModal'
 export default function Home() {
   const [posts, setPosts] = useState<Post[]>([])
   const [category, setCategory] = useState('')
+  const [showModal, setShowModal] = useState(false)
   const router = useRouter()
 
   const fetchPost = async (category: string) => {
@@ -45,7 +46,12 @@ export default function Home() {
         <SearchInputCustom />
         <div className="flex flex-row items-center gap-1.5">
           <Dropdown options={CATEGORY} onSelect={handleSelect} isHideBg placeholder="Community" />
-          <CustomButton variant="success">
+          <CustomButton
+            variant="success"
+            onClick={() => {
+              setShowModal(true)
+            }}
+          >
             <p className="text-white font-bold">Create +</p>
           </CustomButton>
         </div>
@@ -66,7 +72,12 @@ export default function Home() {
           )
         })}
       </section>
-      <CreatePostModal isOpen onClose={() => {}} />
+      <CreatePostModal
+        isOpen={showModal}
+        onClose={() => {
+          setShowModal(false)
+        }}
+      />
     </div>
   )
 }

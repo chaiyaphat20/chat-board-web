@@ -32,7 +32,26 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({ isOpen, onClose, onPo
         className="bg-white rounded-lg w-[500px] p-6 shadow-xl"
         onClick={e => e.stopPropagation()}
       >
-        <h2 className="text-xl font-bold mb-6 text-center">Create Post</h2>
+        <div className="mb-6 items-center justify-between flex flex-row">
+          <h2 className="text-xl font-bold  text-start">Create Post</h2>
+          <div className="cursor-pointer" onClick={onClose}>
+            <svg
+              width="25"
+              height="25"
+              viewBox="0 0 25 25"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M17.0459 7.1416L7.0459 17.1416M7.0459 7.1416L17.0459 17.1416"
+                stroke="#243831"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </div>
+        </div>
 
         <div className="mb-4">
           <Dropdown
@@ -58,7 +77,7 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({ isOpen, onClose, onPo
         />
 
         <div className="flex justify-end space-x-4">
-          <CustomButton variant="secondary" onClick={onClose}>
+          <CustomButton variant="outline" onClick={onClose}>
             Cancel
           </CustomButton>
 
