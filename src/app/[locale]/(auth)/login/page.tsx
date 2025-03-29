@@ -33,7 +33,7 @@ const LoginPage = () => {
       if (result?.error) {
         setError('Invalid username or password')
       } else {
-        router.push('/dashboard')
+        router.push('/post')
       }
     } catch (error) {
       setError('An error occurred, please try again')
@@ -44,10 +44,10 @@ const LoginPage = () => {
   }
 
   return (
-    <main className="flex min-h-screen  bg-[#243831]">
+    <main className="flex min-h-screen  bg-green-500">
       <div className="w-full flex flex-col lg:flex-row-reverse">
-        <header className="bg-[#2B5F44] min-h-[362px] lg:w-[632px] lg:h-full w-full rounded-b-4xl items-center justify-center flex flex-col">
-          <div className="relative w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 2xl:w-[300] 2xl:h-[230px]">
+        <header className="bg-green-300 min-h-[362px] lg:w-[632px] lg:h-full w-full rounded-b-4xl items-center justify-center flex flex-col">
+          <div className="relative w-24  h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 2xl:w-[300] 2xl:h-[230px]">
             <Image
               src="/assets/picture/logo.png"
               alt="Logo"
@@ -55,7 +55,7 @@ const LoginPage = () => {
               className="object-contain"
             />
           </div>
-          <h1 className="text-white mt-[27px]">a Board</h1>
+          <h1 className="text-white mt-[27px] font-castoro-italic text-[28px]">a Board</h1>
         </header>
         <aside className="flex  flex-col items-start justify-center w-full h-full px-4 gap-[40px] lg:items-center lg:justify-center">
           <h1 className="text-white text-2xl font-bold">Signin</h1>

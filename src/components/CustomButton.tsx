@@ -40,7 +40,7 @@ const CustomButton: React.FC<CustomButtonProps> = ({
   // Variant-specific styles
   const variantStyles = {
     primary: `
-      bg-[#49A569]
+      bg-success
       text-white
       hover:bg-[#3D8C57]
       focus:ring-[#3D8C57]
@@ -52,7 +52,7 @@ const CustomButton: React.FC<CustomButtonProps> = ({
       focus:ring-gray-500
     `,
     success: `
-      bg-[#49A569]
+      bg-success
       text-white
       hover:bg-[#3D8C57]
     `,

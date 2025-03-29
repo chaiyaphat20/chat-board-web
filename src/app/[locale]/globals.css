@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 :root {
   --background: #ffffff;
@@ -10,6 +10,34 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-castoro-regular: var(--font-castoro-regular);
+  --font-castoro-italic: var(--font-castoro-italic);
+
+  /* Green Palette */
+  --color-green-500: #243831;
+  --color-green-300: #2b5f44;
+  --color-green-100: #d8e9e4;
+
+  /* Base Colors */
+  --color-white: #ffffff;
+  --color-black: #000000;
+  --color-transparent: transparent;
+
+  /* Grey Palette */
+  --color-grey-100: #bbc2c0;
+  --color-grey-300: #939494;
+
+  /* Accent Colors */
+  --color-golden: #c5a365;
+  --color-success: #49a569;
+
+  /* Text Colors */
+  --color-text-primary: #191919;
+  --color-text-secondary: #5b5b5b;
+
+  /* State Colors */
+  --color-success: #49a569;
+  --color-fail: #f23536;
 }
 
 @media (prefers-color-scheme: dark) {

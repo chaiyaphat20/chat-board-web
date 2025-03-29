@@ -10,7 +10,7 @@ const HeaderMenu = () => {
   return (
     <div className="w-full fixed top-0 left-0 z-10">
       <header className="flex items-center justify-between p-4 bg-[#243831] text-white ">
-        <h1 className="text-lg font-bold">a Board</h1>
+        <h1 className="text-lg font-bold font-castoro-italic text-[20px]">a Board</h1>
         <button onClick={() => setIsOpen(true)} className=" lg:hidden">
           <Menu size={20} />
         </button>
