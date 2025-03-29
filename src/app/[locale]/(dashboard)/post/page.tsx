@@ -10,6 +10,7 @@ import Dropdown from '@/components/Dropdown'
 import { CATEGORY } from '@/constants/constants'
 import { PostCategoryType } from '@/types/post-category.enum'
 import SearchInputCustom from '@/components/SearchInputCustom'
+import CreatePostModal from './components/CreatePostModal'
 
 export default function Home() {
   const [posts, setPosts] = useState<Post[]>([])
@@ -65,6 +66,7 @@ export default function Home() {
           )
         })}
       </section>
+      <CreatePostModal isOpen onClose={() => {}} />
     </div>
   )
 }

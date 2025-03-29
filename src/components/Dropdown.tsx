@@ -54,7 +54,7 @@ const Dropdown: React.FC<DropdownProps> = ({
       <button
         onClick={() => setIsOpen(!isOpen)}
         className={`
-          flex items-center justify-between w-fit px-4 py-2  z-10 rounded text-[#49A569]
+          flex items-center justify-between rounded-lg w-fit px-4 py-2  z-10  text-[#49A569]
           border border-[#49A569]
         ${isHideBg ? 'bg-transparent border-none text-[#191919] font-bold' : 'bg-white'}
         `}
@@ -65,7 +65,7 @@ const Dropdown: React.FC<DropdownProps> = ({
 
       {isOpen && (
         <div
-          className={`absolute left-0 mt-2 w-48 bg-white border border-gray-200 rounded shadow-lg `}
+          className={`absolute left-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg `}
         >
           <ul className="py-2">
             {options.map(option => (
