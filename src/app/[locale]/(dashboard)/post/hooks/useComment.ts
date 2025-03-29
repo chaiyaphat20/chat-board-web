@@ -28,18 +28,13 @@ export const useComment = ({ postId, onCommentAdded }: UseCommentProps) => {
     setError(null)
   }
 
-  const submitComment = async (postId: number) => {
-    if (!comment.trim()) {
-      setError('Comment cannot be empty')
-      return
-    }
-
+  const submitComment = async (postId: number, commentModal?: string) => {
     try {
       setIsSubmitting(true)
       setError(null)
 
       const body: CreateCommentBody = {
-        content: comment.trim(),
+        content: commentModal ?? comment.trim(),
         post_id: postId,
       }
       await PostServices.addComment(body)

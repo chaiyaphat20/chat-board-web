@@ -10,6 +10,7 @@ import { GetPostWithComment } from '@/libs/api/post/get-post-with-comment.type'
 import Image from 'next/image'
 import { timeAgo } from '@/utils/convertTime'
 import { useComment } from '../hooks/useComment'
+import AddCommentsModal from '../components/AddCommentsModal'
 
 function Page({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params)
@@ -109,7 +110,7 @@ function Page({ params }: { params: Promise<{ id: string }> }) {
             )}
 
             {isAddingComment && (
-              <div className="mt-5">
+              <div className="mt-5 lg:block hidden">
                 <textarea
                   placeholder="What's on your mind..."
                   value={comment}
@@ -138,6 +139,17 @@ function Page({ params }: { params: Promise<{ id: string }> }) {
                   </CustomButton>
                 </div>
               </div>
+            )}
+            {isAddingComment && (
+              <AddCommentsModal
+                isOpen
+                onClose={() => {
+                  closeCommentBox()
+                }}
+                onSubmit={comment => {
+                  submitComment(postWithComment.id, comment)
+                }}
+              />
             )}
           </main>
           <section className="mt-4 flex flex-col gap-6">
