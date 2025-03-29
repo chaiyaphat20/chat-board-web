@@ -21,7 +21,7 @@ export default function Home() {
 
   return (
     <div className="w-full min-h-[calc(100vh-60px)]  overflow-hidden flex flex-col px-4 lg:px-[40px] bg-[#BBC2C0] ">
-      <header className="min-h-[40px] flex items-center mt-[48px] justify-between bg-red top-[60px]">
+      <header className="min-h-[40px] flex flex-col lg:flex-row gap-4 items-center mt-[48px] justify-between bg-red top-[60px]">
         <SearchInputCustom
           value={search}
           onChange={event => {
@@ -58,6 +58,13 @@ export default function Home() {
             />
           )
         })}
+        {postFilter.length === 0 ? (
+          <div className="mt-10 ml-4">
+            <p>Not Found data...</p>
+          </div>
+        ) : (
+          <></>
+        )}
       </section>
 
       <CreatePostModal
