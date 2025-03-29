@@ -33,7 +33,7 @@ const LoginPage = () => {
       if (result?.error) {
         setError('Invalid username or password')
       } else {
-        router.push('/post')
+        router.push('/home')
       }
     } catch (error) {
       setError('An error occurred, please try again')

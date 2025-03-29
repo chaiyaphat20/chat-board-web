@@ -4,11 +4,12 @@ import React, { useState } from 'react'
 import { Menu, X } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { MenuItemProps } from './SideMenu'
+import { useRouter } from 'next/navigation'
 
 const HeaderMenu = () => {
   const [isOpen, setIsOpen] = useState(false)
   const [selectedMenuItem, setSelectedMenuItem] = useState('home')
-
+  const router = useRouter()
   const menuItems: MenuItemProps[] = [
     {
       id: 'home',
@@ -32,7 +33,7 @@ const HeaderMenu = () => {
       ),
     },
     {
-      id: 'blog',
+      id: 'our-blog',
       label: 'Our Blog',
       icon: (
         <svg
@@ -110,7 +111,11 @@ const HeaderMenu = () => {
                   return (
                     <div
                       key={item.id}
-                      onClick={() => setSelectedMenuItem(item.id)}
+                      onClick={() => {
+                        setSelectedMenuItem(item.id)
+                        router.push(item.id)
+                        setIsOpen(false)
+                      }}
                       className={`
                       flex gap-4 px-[28px] cursor-pointer 
                       

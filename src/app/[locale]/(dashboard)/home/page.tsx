@@ -16,7 +16,7 @@ export default function Home() {
   const router = useRouter()
 
   const handleClick = (postId: string) => {
-    router.push(`/post/${postId}`)
+    router.push(`/home/${postId}`)
   }
 
   return (

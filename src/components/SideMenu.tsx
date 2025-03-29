@@ -1,4 +1,5 @@
 'use client'
+import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
 export interface MenuItemProps {
   id: string
@@ -8,7 +9,7 @@ export interface MenuItemProps {
 
 const SideMenu: React.FC = () => {
   const [selectedMenuItem, setSelectedMenuItem] = useState('home')
-
+  const route = useRouter()
   const menuItems: MenuItemProps[] = [
     {
       id: 'home',
@@ -32,7 +33,7 @@ const SideMenu: React.FC = () => {
       ),
     },
     {
-      id: 'blog',
+      id: 'our-blog',
       label: 'Our Blog',
       icon: (
         <svg
@@ -60,7 +61,10 @@ const SideMenu: React.FC = () => {
         {menuItems.map(item => (
           <div
             key={item.id}
-            onClick={() => setSelectedMenuItem(item.id)}
+            onClick={() => {
+              setSelectedMenuItem(item.id)
+              route.push(item.id)
+            }}
             className={`
               flex gap-4 px-[28px] cursor-pointer p-4
               
