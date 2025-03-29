@@ -28,8 +28,8 @@ const castoroItalic = localFont({
 
 export const metadata: Metadata = {
   title: {
-    template: '%s | Todo App',
-    default: 'Todo App',
+    template: '%s | Dashboard App',
+    default: 'Dashboard App',
   },
   description: 'A more detailed description of my application',
   keywords: ['nextjs', 'react', 'web development'],
@@ -39,9 +39,9 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_US',
     url: 'https://Chaiyaphat.com',
-    title: 'Todo App',
+    title: 'Dashboard App',
     description: 'A description of my application',
-    siteName: 'Todo App',
+    siteName: 'Dashboard App',
     images: [
       {
         url: '/og-image.jpg',

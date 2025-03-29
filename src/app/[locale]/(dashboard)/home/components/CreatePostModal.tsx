@@ -1,25 +1,48 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import CustomButton from '@/components/CustomButton'
 import Dropdown from '@/components/Dropdown'
 import { CATEGORY } from '@/constants/constants'
 import { PostCategory, PostCategoryType } from '@/types/post-category.enum'
+import { Post } from '@/libs/api/post/get-all-post.type'
 
 interface CreatePostModalProps {
   isOpen: boolean
   onClose: () => void
+  postData?: Post | null
   onPost?: (postData: { community: PostCategoryType; title: string; content: string }) => void
 }
 
-const CreatePostModal: React.FC<CreatePostModalProps> = ({ isOpen, onClose, onPost }) => {
+const CreatePostModal: React.FC<CreatePostModalProps> = ({ isOpen, onClose, onPost, postData }) => {
   const [community, setCommunity] = useState<PostCategoryType | null>(null)
-  const [title, setTitle] = useState('')
-  const [content, setContent] = useState('')
+  const [title, setTitle] = useState(postData?.topic ?? '')
+  const [content, setContent] = useState(postData?.content ?? '')
 
   const handlePost = () => {
     if (onPost && community) {
       onPost({ community, title, content })
     }
   }
+
+  useEffect(() => {
+    console.log('ipdate...')
+    if (postData) {
+      setCommunity((postData.category as PostCategoryType) || null)
+      setTitle(postData.topic || '')
+      setContent(postData.content || '')
+    }
+  }, [postData])
+
+  // รีเซ็ต state เมื่อโมดาลถูกเปิด/ปิด
+  useEffect(() => {
+    if (!isOpen) {
+      // ถ้าไม่มี postData (โหมดสร้างใหม่) ให้รีเซ็ตค่า
+      if (!postData) {
+        setCommunity(null)
+        setTitle('')
+        setContent('')
+      }
+    }
+  }, [isOpen, postData])
 
   if (!isOpen) return null
 
@@ -33,7 +56,7 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({ isOpen, onClose, onPo
         onClick={e => e.stopPropagation()}
       >
         <div className="mb-6 items-center justify-between flex flex-row">
-          <h2 className="text-xl font-bold  text-start">Create Post</h2>
+          <h2 className="text-xl font-bold  text-start">Edit Post</h2>
           <div className="cursor-pointer" onClick={onClose}>
             <svg
               width="25"
@@ -55,6 +78,7 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({ isOpen, onClose, onPo
 
         <div className="mb-4">
           <Dropdown
+            defaultValue={community as any}
             options={CATEGORY}
             onSelect={value => setCommunity(value as PostCategory)}
             placeholder="Choose a community"
