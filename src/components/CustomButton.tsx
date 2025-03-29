@@ -22,6 +22,7 @@ const CustomButton: React.FC<CustomButtonProps> = ({
   font-semibold
   text-base
   py-[10px]
+  px-4
   rounded-lg
   transition-colors
   duration-300

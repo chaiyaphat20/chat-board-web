@@ -13,7 +13,7 @@ const CustomInput = ({ className = '', errorMsg, ...rest }: CustomInputProps) =>
         w-full
         p-[10px]
         border 
-        rounded-xl 
+        rounded-lg 
         bg-white 
         border-[#DADADA]
         placeholder-gray-400

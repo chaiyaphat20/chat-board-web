@@ -8,10 +8,10 @@ const HeaderMenu = () => {
   const [isOpen, setIsOpen] = useState(false)
 
   return (
-    <>
+    <div className="w-full fixed top-0 left-0">
       <header className="flex items-center justify-between p-4 bg-gray-800 text-white ">
-        <h1 className="text-xl font-bold">My Website</h1>
-        <button onClick={() => setIsOpen(true)} className=" xl:hidden">
+        <h1 className="text-lg font-bold">My Website</h1>
+        <button onClick={() => setIsOpen(true)} className=" lg:hidden">
           <Menu size={20} />
         </button>
       </header>
@@ -73,7 +73,7 @@ const HeaderMenu = () => {
           </motion.div>
         )}
       </AnimatePresence>
-    </>
+    </div>
   )
 }
 
