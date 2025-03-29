@@ -4,7 +4,7 @@ import { useSession } from 'next-auth/react'
 
 export default function Home() {
   return (
-    <div className="w-full min-h-[calc(100vh-60px)] overflow-hidden flex flex-col px-16">
+    <div className="w-full min-h-[calc(100vh-60px)]  overflow-hidden flex flex-col px-16">
       <header className="min-h-[40px] flex items-center mt-[48px] justify-between">
         <svg
           width="18"
@@ -29,7 +29,7 @@ export default function Home() {
         </div>
       </header>
       {/* Section ที่สามารถ Scroll ได้ */}
-      <section className="flex-1  rounded-2xl w-full  bg-amber-200"></section>
+      <section className="flex-1  rounded-2xl w-full  bg-white mt-6"></section>
     </div>
   )
 }
