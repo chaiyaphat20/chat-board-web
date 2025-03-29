@@ -140,15 +140,17 @@ function Page({ params }: { params: Promise<{ id: string }> }) {
               </div>
             )}
             {isAddingComment && (
-              <AddCommentsModal
-                isOpen
-                onClose={() => {
-                  closeCommentBox()
-                }}
-                onSubmit={comment => {
-                  submitComment(postWithComment.id, comment)
-                }}
-              />
+              <div className="lg:hidden block">
+                <AddCommentsModal
+                  isOpen
+                  onClose={() => {
+                    closeCommentBox()
+                  }}
+                  onSubmit={comment => {
+                    submitComment(postWithComment.id, comment)
+                  }}
+                />
+              </div>
             )}
           </main>
           <section className="mt-4 flex flex-col gap-6">

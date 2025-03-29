@@ -1,6 +1,6 @@
 'use client'
 import React, { useState } from 'react'
-interface MenuItemProps {
+export interface MenuItemProps {
   id: string
   label: string
   icon: React.ReactNode
@@ -69,12 +69,12 @@ const SideMenu: React.FC = () => {
             {item.icon}
             <h3
               className={`
-    ${
-      selectedMenuItem === item.id
-        ? 'text-[#243831] font-semibold'
-        : 'text-gray-600 hover:text-[#243831]'
-    }
-  `}
+                ${
+                  selectedMenuItem === item.id
+                    ? 'text-[#243831] font-semibold'
+                    : 'text-gray-600 hover:text-[#243831]'
+                }
+              `}
             >
               {item.label}
             </h3>

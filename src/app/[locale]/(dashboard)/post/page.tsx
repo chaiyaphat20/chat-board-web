@@ -43,7 +43,6 @@ export default function Home() {
           </CustomButton>
         </div>
       </header>
-      {/* Section ที่สามารถ Scroll ได้ */}
       <section className="flex-1  rounded-2xl w-full  bg-white mt-6 ">
         {postFilter.map((post, index) => {
           return (
