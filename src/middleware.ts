@@ -3,7 +3,7 @@ import createIntlMiddleware from 'next-intl/middleware'
 import { NextRequest, NextResponse } from 'next/server'
 import { AppConfig } from './utils/Appconfig'
 
-const publicPages = ['/login', '/home', '/']
+const publicPages = ['/login', '/', '/home', '/home/.*']
 const intlMiddleware = createIntlMiddleware({
   locales: AppConfig.locales,
   localePrefix: AppConfig.localePrefix,

@@ -18,6 +18,7 @@ const SideMenu: React.FC = () => {
   }
 
   const session = useSession()
+  const userName = session.data?.user.username
 
   const menuItems: MenuItemProps[] = [
     {
@@ -67,33 +68,36 @@ const SideMenu: React.FC = () => {
   return (
     <aside className="lg:min-w-[280px] lg:fixed  lg:left-0  lg:visible  invisible w-0 bg-[#BBC2C0] h-full min-h-[calc(100vh-60px)]">
       <div className="mt-8">
-        {menuItems.map(item => (
-          <div
-            key={item.id}
-            onClick={() => {
-              setSelectedMenuItem(item.id)
-              route.push(item.id)
-            }}
-            className={`
-              flex gap-4 px-[28px] cursor-pointer p-4
-              
-            `}
-          >
-            {item.icon}
-            <h3
+        {menuItems.map(item => {
+          if (item.id === 'our-blog' && !userName) return
+          return (
+            <div
+              key={item.id}
+              onClick={() => {
+                setSelectedMenuItem(item.id)
+                route.push(item.id)
+              }}
               className={`
-                ${
-                  selectedMenuItem === item.id
-                    ? 'text-[#243831] font-semibold'
-                    : 'text-gray-600 hover:text-[#243831]'
-                }
+                flex gap-4 px-[28px] cursor-pointer p-4
+                
               `}
             >
-              {item.label}
-            </h3>
-          </div>
-        ))}
-        {!session && (
+              {item.icon}
+              <h3
+                className={`
+                  ${
+                    selectedMenuItem === item.id
+                      ? 'text-[#243831] font-semibold'
+                      : 'text-gray-600 hover:text-[#243831]'
+                  }
+                `}
+              >
+                {item.label}
+              </h3>
+            </div>
+          )
+        })}
+        {userName && (
           <div className="ml-[28px] mt-40 flex gap-3 cursor-pointer" onClick={handleLogout}>
             <Image alt="" src={'/assets/svg/logout-black.svg'} width={25} height={25} />
             <p className="text-text-primary font-bold">Logout</p>

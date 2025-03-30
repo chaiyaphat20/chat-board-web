@@ -11,6 +11,7 @@ import Image from 'next/image'
 import { timeAgo } from '@/utils/convertTime'
 import { useComment } from '../hooks/useComment'
 import AddCommentsModal from '../components/AddCommentsModal'
+import { useSession } from 'next-auth/react'
 
 function Page({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params)
@@ -52,6 +53,9 @@ function Page({ params }: { params: Promise<{ id: string }> }) {
   useEffect(() => {
     fetchPostWithComment(id)
   }, [id])
+
+  const session = useSession()
+  const userName = session.data?.user.username
 
   return (
     <div className="py-[24.5px] px-4 bg-white min-h-[calc(100vh-60px)] lg:px-[100px]">
@@ -102,7 +106,7 @@ function Page({ params }: { params: Promise<{ id: string }> }) {
               <CommentComponent count={postWithComment.comments.length} />
             </section>
 
-            {!isAddingComment && (
+            {!isAddingComment && userName && (
               <CustomButton variant="outline" className="mt-[28px]" onClick={openCommentBox}>
                 Add Comment
               </CustomButton>
