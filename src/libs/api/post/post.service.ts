@@ -7,6 +7,7 @@ import { PostCategoryType } from '@/types/post-category.enum'
 import { GetPostWithComment } from './get-post-with-comment.type'
 import { CreatePostBody, CreatePostResponse } from './create-post.type'
 import { CreateCommentBody, CreateCommentResponse } from './create-comment.type'
+import { UpdatePostBody } from './update-post'
 
 export const PostServices = {
   getAllPost: async (
@@ -47,6 +48,14 @@ export const PostServices = {
   addComment: async (body: CreateCommentBody): Promise<CreateCommentResponse> => {
     try {
       const response = await apiClient.post<ApiResponse<CreateCommentResponse>>(`/comments`, body)
+      return response.data.data
+    } catch (error) {
+      throw error
+    }
+  },
+  updatePost: async (postId: string, body: UpdatePostBody): Promise<string> => {
+    try {
+      const response = await apiClient.patch<ApiResponse<string>>(`/posts/${postId}`, body)
       return response.data.data
     } catch (error) {
       throw error

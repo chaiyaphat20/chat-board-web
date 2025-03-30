@@ -3,6 +3,7 @@ import { PostServices } from '@/libs/api/post/post.service'
 import { Post } from '@/libs/api/post/get-all-post.type'
 import { PostCategoryType } from '@/types/post-category.enum'
 import { CreatePostBody } from '@/libs/api/post/create-post.type'
+import { UpdatePostBody } from '@/libs/api/post/update-post'
 
 export function useOurBlog() {
   const [posts, setPosts] = useState<Post[]>([])
@@ -39,6 +40,16 @@ export function useOurBlog() {
     }
   }
 
+  const updatePost = async (postId: string, body: UpdatePostBody) => {
+    try {
+      await PostServices.updatePost(postId, body)
+      setEditShowModal(false)
+      fetchPost(category)
+    } catch (error) {
+      console.error('Error fetching posts:', error)
+    }
+  }
+
   useEffect(() => {
     fetchPost(category)
   }, [category])
@@ -63,5 +74,6 @@ export function useOurBlog() {
     search,
     setSelectedPost,
     selectedPost,
+    updatePost,
   }
 }

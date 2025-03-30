@@ -24,7 +24,6 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({ isOpen, onClose, onPo
   }
 
   useEffect(() => {
-    console.log('ipdate...')
     if (postData) {
       setCommunity((postData.category as PostCategoryType) || null)
       setTitle(postData.topic || '')
@@ -32,10 +31,8 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({ isOpen, onClose, onPo
     }
   }, [postData])
 
-  // รีเซ็ต state เมื่อโมดาลถูกเปิด/ปิด
   useEffect(() => {
     if (!isOpen) {
-      // ถ้าไม่มี postData (โหมดสร้างใหม่) ให้รีเซ็ตค่า
       if (!postData) {
         setCommunity(null)
         setTitle('')

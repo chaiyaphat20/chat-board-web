@@ -8,6 +8,7 @@ import { CATEGORY } from '@/constants/constants'
 import SearchInputCustom from '@/components/SearchInputCustom'
 import { useOurBlog } from './hooks/usePosts'
 import CreatePostModal from '../home/components/CreatePostModal'
+import { UpdatePostBody } from '@/libs/api/post/update-post'
 
 export default function Home() {
   const {
@@ -22,6 +23,7 @@ export default function Home() {
     createPost,
     selectedPost,
     setSelectedPost,
+    updatePost,
   } = useOurBlog()
 
   const router = useRouter()
@@ -96,7 +98,12 @@ export default function Home() {
             setEditShowModal(false)
           }}
           onPost={({ community, content, title }) => {
-            // createPost(community, title, content)
+            const body: UpdatePostBody = {
+              category: community,
+              content,
+              topic: title,
+            }
+            updatePost('' + selectedPost.id, body)
           }}
         />
       )}
