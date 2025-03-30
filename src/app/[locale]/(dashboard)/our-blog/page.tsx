@@ -12,7 +12,6 @@ import { UpdatePostBody } from '@/libs/api/post/update-post'
 import DeleteConfirmationModal from './components/DeleteConfirmationModal'
 
 export default function OurBLog() {
-  const router = useRouter()
   const {
     postFilter,
     setCategory,
@@ -30,10 +29,6 @@ export default function OurBLog() {
     showDeleteModal,
     deletePostById,
   } = useOurBlog()
-
-  const handleClick = (postId: string) => {
-    router.push(`/home/${postId}`)
-  }
 
   return (
     <div className="w-full min-h-[calc(100vh-60px)]  overflow-hidden flex flex-col px-4 lg:px-[40px] bg-[#BBC2C0] ">

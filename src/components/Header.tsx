@@ -1,10 +1,10 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Menu, X } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { MenuItemProps } from './SideMenu'
-import { useRouter } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import CustomButton from './CustomButton'
 import { getSession, useSession } from 'next-auth/react'
 import Image from 'next/image'
@@ -19,6 +19,12 @@ const HeaderMenu = () => {
 
   const session = useSession()
   const userName = session.data?.user.username
+  const pathname = usePathname()
+  const currentPath = pathname === '/' ? 'home' : pathname.split('/')[1]
+
+  useEffect(() => {
+    setSelectedMenuItem(currentPath)
+  }, [currentPath])
 
   const menuItems: MenuItemProps[] = [
     {
@@ -166,7 +172,7 @@ const HeaderMenu = () => {
                 <div
                   className="ml-[28px] mt-30 flex gap-3 cursor-pointer"
                   onClick={() => {
-                    if (session) {
+                    if (userName) {
                       handleLogout()
                     } else {
                       router.replace('/login')
@@ -174,7 +180,7 @@ const HeaderMenu = () => {
                   }}
                 >
                   <Image alt="" src={'/assets/svg/logout-white.svg'} width={25} height={25} />
-                  <p className="text-gray-300 font-bold">{!session ? 'Logout' : 'Login'}</p>
+                  <p className="text-gray-300 font-bold">{!!userName ? 'Logout' : 'Login'}</p>
                 </div>
               </ul>
             </nav>

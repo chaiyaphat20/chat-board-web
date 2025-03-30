@@ -16,11 +16,10 @@ const SideMenu: React.FC = () => {
   const [selectedMenuItem, setSelectedMenuItem] = useState('home')
   const router = useRouter()
   const pathname = usePathname()
-
-  const currentPath = pathname === '/' ? 'home' : pathname.split('/')[1]
-
   const { data: sessionData } = useSession()
   const userName = sessionData?.user?.username
+
+  const currentPath = pathname === '/' ? 'home' : pathname.split('/')[1]
 
   useEffect(() => {
     setSelectedMenuItem(currentPath)
