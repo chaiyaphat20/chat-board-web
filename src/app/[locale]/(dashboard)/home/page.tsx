@@ -75,8 +75,8 @@ export default function Home() {
         onClose={() => {
           setShowModal(false)
         }}
-        onPost={({ community, content, title }) => {
-          createPost(community, title, content)
+        onPost={({ category, content, title }) => {
+          createPost(category, title, content)
         }}
       />
     </div>

@@ -11,7 +11,8 @@ import CreatePostModal from '../home/components/CreatePostModal'
 import { UpdatePostBody } from '@/libs/api/post/update-post'
 import DeleteConfirmationModal from './components/DeleteConfirmationModal'
 
-export default function Home() {
+export default function OurBLog() {
+  const router = useRouter()
   const {
     postFilter,
     setCategory,
@@ -29,6 +30,10 @@ export default function Home() {
     showDeleteModal,
     deletePostById,
   } = useOurBlog()
+
+  const handleClick = (postId: string) => {
+    router.push(`/home/${postId}`)
+  }
 
   return (
     <div className="w-full min-h-[calc(100vh-60px)]  overflow-hidden flex flex-col px-4 lg:px-[40px] bg-[#BBC2C0] ">
@@ -86,8 +91,8 @@ export default function Home() {
         onClose={() => {
           setShowCreateModal(false)
         }}
-        onPost={({ community, content, title }) => {
-          createPost(community, title, content)
+        onPost={({ category, content, title }) => {
+          createPost(category, title, content)
         }}
       />
 
@@ -98,9 +103,9 @@ export default function Home() {
           onClose={() => {
             setEditShowModal(false)
           }}
-          onPost={({ community, content, title }) => {
+          onPost={({ category, content, title }) => {
             const body: UpdatePostBody = {
-              category: community,
+              category,
               content,
               topic: title,
             }

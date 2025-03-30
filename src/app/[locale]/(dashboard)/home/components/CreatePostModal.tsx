@@ -9,23 +9,25 @@ interface CreatePostModalProps {
   isOpen: boolean
   onClose: () => void
   postData?: Post | null
-  onPost?: (postData: { community: PostCategoryType; title: string; content: string }) => void
+  onPost?: (postData: { category: PostCategoryType; title: string; content: string }) => void
 }
 
 const CreatePostModal: React.FC<CreatePostModalProps> = ({ isOpen, onClose, onPost, postData }) => {
-  const [community, setCommunity] = useState<PostCategoryType | null>(null)
+  const [category, setCategory] = useState<PostCategoryType | null>(
+    (postData?.category as PostCategoryType) ?? null
+  )
   const [title, setTitle] = useState(postData?.topic ?? '')
   const [content, setContent] = useState(postData?.content ?? '')
 
   const handlePost = () => {
-    if (onPost && community) {
-      onPost({ community, title, content })
+    if (onPost && category) {
+      onPost({ category, title, content })
     }
   }
 
   useEffect(() => {
     if (postData) {
-      setCommunity((postData.category as PostCategoryType) || null)
+      setCategory((postData.category as PostCategoryType) || null)
       setTitle(postData.topic || '')
       setContent(postData.content || '')
     }
@@ -34,7 +36,7 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({ isOpen, onClose, onPo
   useEffect(() => {
     if (!isOpen) {
       if (!postData) {
-        setCommunity(null)
+        setCategory(null)
         setTitle('')
         setContent('')
       }
@@ -75,9 +77,9 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({ isOpen, onClose, onPo
 
         <div className="mb-4">
           <Dropdown
-            defaultValue={community as any}
+            defaultValue={category as any}
             options={CATEGORY}
-            onSelect={value => setCommunity(value as PostCategory)}
+            onSelect={value => setCategory(value as PostCategory)}
             placeholder="Choose a community"
           />
         </div>
@@ -106,7 +108,7 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({ isOpen, onClose, onPo
             variant="primary"
             className="w-full lg:w-fit"
             onClick={handlePost}
-            disabled={!community || !title || !content}
+            disabled={!category || !title || !content}
           >
             Post
           </CustomButton>
