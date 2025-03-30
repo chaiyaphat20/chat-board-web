@@ -13,13 +13,17 @@ export const PostServices = {
   getAllPost: async (
     category?: PostCategoryType,
     limit: number = 100,
-    offset = 0
+    offset = 0,
+    userId?: string
   ): Promise<Post[]> => {
     try {
-      const url = category
-        ? `/posts?category=${category}&limit=${limit}&offset=${offset}`
-        : `/posts?limit=${limit}&offset=${offset}`
-
+      let url = `/posts?limit=${limit}&offset=${offset}`
+      if (category) {
+        url += `&category=${category}`
+      }
+      if (userId) {
+        url += `&userId=${userId}`
+      }
       const response = await apiClient.get<ApiResponse<Post[]>>(url)
       return response.data.data
     } catch (error) {

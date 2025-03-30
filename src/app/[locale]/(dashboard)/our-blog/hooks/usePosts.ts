@@ -4,6 +4,7 @@ import { Post } from '@/libs/api/post/get-all-post.type'
 import { PostCategoryType } from '@/types/post-category.enum'
 import { CreatePostBody } from '@/libs/api/post/create-post.type'
 import { UpdatePostBody } from '@/libs/api/post/update-post'
+import { useSession } from 'next-auth/react'
 
 export function useOurBlog() {
   const [posts, setPosts] = useState<Post[]>([])
@@ -13,11 +14,13 @@ export function useOurBlog() {
   const [showCreateModal, setShowCreateModal] = useState(false)
   const [editShowModal, setEditShowModal] = useState(false)
   const [showDeleteModal, setDeleteShowModal] = useState(false)
+  const session = useSession()
+  const userId = session.data?.user.id
 
   const [search, setSearch] = useState('')
-  const fetchPost = async (category: string) => {
+  const fetchPost = async (category: string, username: string | undefined) => {
     try {
-      const postList = await PostServices.getAllPost(category as PostCategoryType, 100, 0)
+      const postList = await PostServices.getAllPost(category as PostCategoryType, 100, 0, username)
       setPosts(postList)
       console.log({ postList })
     } catch (error) {
@@ -34,7 +37,7 @@ export function useOurBlog() {
       }
       await PostServices.createPost(body)
       setShowCreateModal(false)
-      fetchPost(category)
+      fetchPost(category, userId)
     } catch (error) {
       console.error('Error fetching posts:', error)
     }
@@ -44,7 +47,7 @@ export function useOurBlog() {
     try {
       await PostServices.updatePost(postId, body)
       setEditShowModal(false)
-      fetchPost(category)
+      fetchPost(category, userId)
     } catch (error) {
       console.error('Error fetching posts:', error)
     }
@@ -54,15 +57,15 @@ export function useOurBlog() {
     try {
       await PostServices.deletePostById(postId)
       setDeleteShowModal(false)
-      fetchPost(category)
+      fetchPost(category, userId)
     } catch (error) {
       console.error('Error fetching posts:', error)
     }
   }
 
   useEffect(() => {
-    fetchPost(category)
-  }, [category])
+    fetchPost(category, userId)
+  }, [category, userId])
 
   const postFilter = posts.filter(item => {
     if (search.trim().length >= 2) {
