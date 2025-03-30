@@ -2,7 +2,7 @@
 import { Session } from 'next-auth'
 import { getSession, SessionProvider } from 'next-auth/react'
 import { CSSProperties, useEffect, useState } from 'react'
-
+import { ToastContainer, toast } from 'react-toastify'
 export default function ClientWrapper({ children }: { children: React.ReactNode }) {
   const [session, setSession] = useState<Session | null>(null)
   const [isClient, setIsClient] = useState(false)
@@ -20,5 +20,10 @@ export default function ClientWrapper({ children }: { children: React.ReactNode 
     return null
   }
 
-  return <SessionProvider session={session}>{children}</SessionProvider>
+  return (
+    <SessionProvider session={session}>
+      {children}
+      <ToastContainer />
+    </SessionProvider>
+  )
 }

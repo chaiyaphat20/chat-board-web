@@ -12,6 +12,7 @@ import { timeAgo } from '@/utils/convertTime'
 import { useComment } from '../hooks/useComment'
 import AddCommentsModal from '../components/AddCommentsModal'
 import { useSession } from 'next-auth/react'
+import { toast } from 'react-toastify'
 
 function Page({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params)
@@ -49,8 +50,8 @@ function Page({ params }: { params: Promise<{ id: string }> }) {
       setIsLoading(true)
       const result = await PostServices.getPostWithComment(postId)
       setPostWithComment(result)
-    } catch (error) {
-      console.error('Error fetching post:', error)
+    } catch (error: any) {
+      toast.error(error.message)
     } finally {
       setIsLoading(false)
     }

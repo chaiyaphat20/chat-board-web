@@ -1,5 +1,3 @@
-import { Todo } from '@/types/todo/response.type'
-import { TodoType } from '@/types/todo/todo.schema'
 import apiClient from '../apiClient'
 import { Post } from './get-all-post.type'
 import { ApiResponse } from '@/types/api.types'
@@ -8,6 +6,7 @@ import { GetPostWithComment } from './get-post-with-comment.type'
 import { CreatePostBody, CreatePostResponse } from './create-post.type'
 import { CreateCommentBody, CreateCommentResponse } from './create-comment.type'
 import { UpdatePostBody } from './update-post'
+import { handleError } from '@/utils/handleError'
 
 export const PostServices = {
   getAllPost: async (
@@ -27,7 +26,7 @@ export const PostServices = {
       const response = await apiClient.get<ApiResponse<Post[]>>(url)
       return response.data.data
     } catch (error) {
-      throw error
+      throw handleError(error)
     }
   },
   getPostWithComment: async (postId: string): Promise<GetPostWithComment> => {
@@ -37,7 +36,7 @@ export const PostServices = {
       )
       return response.data.data
     } catch (error) {
-      throw error
+      throw handleError(error)
     }
   },
   createPost: async (body: CreatePostBody): Promise<CreatePostResponse> => {
@@ -45,7 +44,7 @@ export const PostServices = {
       const response = await apiClient.post<ApiResponse<CreatePostResponse>>(`/posts`, body)
       return response.data.data
     } catch (error) {
-      throw error
+      throw handleError(error)
     }
   },
 
@@ -54,7 +53,7 @@ export const PostServices = {
       const response = await apiClient.post<ApiResponse<CreateCommentResponse>>(`/comments`, body)
       return response.data.data
     } catch (error) {
-      throw error
+      throw handleError(error)
     }
   },
   updatePost: async (postId: string, body: UpdatePostBody): Promise<string> => {
@@ -62,7 +61,7 @@ export const PostServices = {
       const response = await apiClient.patch<ApiResponse<string>>(`/posts/${postId}`, body)
       return response.data.data
     } catch (error) {
-      throw error
+      throw handleError(error)
     }
   },
   deletePostById: async (postId: string): Promise<string> => {
@@ -70,7 +69,7 @@ export const PostServices = {
       const response = await apiClient.delete<ApiResponse<string>>(`/posts/${postId}`)
       return response.data.data
     } catch (error) {
-      throw error
+      throw handleError(error)
     }
   },
 }

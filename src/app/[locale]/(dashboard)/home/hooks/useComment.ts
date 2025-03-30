@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { PostServices } from '@/libs/api/post/post.service'
 import { CreateCommentBody } from '@/libs/api/post/create-comment.type'
+import { toast } from 'react-toastify'
 
 interface UseCommentProps {
   postId: string
@@ -43,8 +44,8 @@ export const useComment = ({ postId, onCommentAdded }: UseCommentProps) => {
       setIsAddingComment(false)
 
       onCommentAdded && onCommentAdded()
-    } catch (err) {
-      setError('Failed to submit comment. Please try again.')
+    } catch (error: any) {
+      toast.error(error.message)
     } finally {
       setIsSubmitting(false)
     }

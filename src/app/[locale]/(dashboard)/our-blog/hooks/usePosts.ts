@@ -5,6 +5,7 @@ import { PostCategoryType } from '@/types/post-category.enum'
 import { CreatePostBody } from '@/libs/api/post/create-post.type'
 import { UpdatePostBody } from '@/libs/api/post/update-post'
 import { useSession } from 'next-auth/react'
+import { toast } from 'react-toastify'
 
 export function useOurBlog() {
   const [posts, setPosts] = useState<Post[]>([])
@@ -23,8 +24,8 @@ export function useOurBlog() {
       const postList = await PostServices.getAllPost(category as PostCategoryType, 100, 0, username)
       setPosts(postList)
       console.log({ postList })
-    } catch (error) {
-      console.error('Error fetching posts:', error)
+    } catch (error: any) {
+      toast.error(error.message)
     }
   }
 
@@ -38,8 +39,8 @@ export function useOurBlog() {
       await PostServices.createPost(body)
       setShowCreateModal(false)
       fetchPost(category, userId)
-    } catch (error) {
-      console.error('Error fetching posts:', error)
+    } catch (error: any) {
+      toast.error(error.message)
     }
   }
 
@@ -48,8 +49,8 @@ export function useOurBlog() {
       await PostServices.updatePost(postId, body)
       setEditShowModal(false)
       fetchPost(category, userId)
-    } catch (error) {
-      console.error('Error fetching posts:', error)
+    } catch (error: any) {
+      toast.error(error.message)
     }
   }
 
@@ -58,8 +59,8 @@ export function useOurBlog() {
       await PostServices.deletePostById(postId)
       setDeleteShowModal(false)
       fetchPost(category, userId)
-    } catch (error) {
-      console.error('Error fetching posts:', error)
+    } catch (error: any) {
+      toast.error(error.message)
     }
   }
 
