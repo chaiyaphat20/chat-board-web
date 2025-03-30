@@ -74,7 +74,14 @@ const HeaderMenu = () => {
         </button>
 
         {!userName ? (
-          <CustomButton className="hidden lg:block">Sign In</CustomButton>
+          <CustomButton
+            onClick={() => {
+              router.replace('/login')
+            }}
+            className="hidden lg:block"
+          >
+            Sign In
+          </CustomButton>
         ) : (
           <div className="gap-[20px] hidden lg:flex  items-center justify-center">
             <p>{userName}</p>
