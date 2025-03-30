@@ -91,7 +91,7 @@ const HeaderMenu = () => {
         ) : (
           <div className="gap-[20px] hidden lg:flex  items-center justify-center">
             <p>{userName}</p>
-            <div className="size-[40px] rounded-full bg-green-100" />
+            <Image src={'/assets/svg/Avatar.svg'} alt="avatar" width={40} height={40} />
           </div>
         )}
       </header>

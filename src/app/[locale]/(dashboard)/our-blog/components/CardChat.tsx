@@ -1,6 +1,7 @@
 import { Post } from '@/libs/api/post/get-all-post.type'
 import React from 'react'
 import CommentComponent from './CommentComponent'
+import Image from 'next/image'
 
 interface Props {
   isRoundFirst?: boolean
@@ -20,7 +21,7 @@ function CardChat({ post, isRoundFirst, isRoundLast, onClickEdit, onClickDelete 
     >
       <div className="items-center flex-row flex justify-between">
         <section className="flex flex-row items-center gap-2.5">
-          <div className="bg-gray-200 rounded-full size-[31.03px]" />
+          <Image src={'/assets/svg/Avatar.svg'} alt="avatar" width={31} height={31} />
           <p className="text-[#939494]">{post?.user?.fullName ?? '-'}</p>
         </section>
         <div className="flex flex-row gap-2">
