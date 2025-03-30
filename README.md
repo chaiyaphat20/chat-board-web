@@ -10,6 +10,12 @@ npm i
 
 #### 1.2 รัน ฝั่ง server ก่อนซึ่งจะอยู่ใน readme ของ backend
 
+#### 1.3 รัน โปรเจคโดย ใน mode dev และโปรเจคจะรันที่ http://localhost:3000
+
+```
+npm run dev
+```
+
 #### 1.3 การใช้งาน ผมได้สร้าง account ไว้ให้แล้ว 3 account และ fix password = 123456 ไม่จำเป็นต้องกรอก
 
 ```
