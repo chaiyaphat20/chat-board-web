@@ -8,8 +8,8 @@ import CustomButton from '@/components/CustomButton'
 import CustomInput from '@/components/CustomInput'
 
 const LoginPage = () => {
-  const [username, setUsername] = useState('admin2')
-  const [password, setPassword] = useState('admin2')
+  const [username, setUsername] = useState('user1') //user1, user2, user3
+  const [password, setPassword] = useState('123456') //FIX password
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
   const router = useRouter()

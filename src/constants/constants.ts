@@ -1,4 +1,5 @@
 export const CATEGORY = [
+  { label: 'All', value: '' },
   { label: 'History', value: 'History' },
   { label: 'Food', value: 'Food' },
   { label: 'Pets', value: 'Pets' },

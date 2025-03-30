@@ -30,10 +30,6 @@ export default function Home() {
     deletePostById,
   } = useOurBlog()
 
-  const router = useRouter()
-
-  const handleClick = (postId: string) => {}
-
   return (
     <div className="w-full min-h-[calc(100vh-60px)]  overflow-hidden flex flex-col px-4 lg:px-[40px] bg-[#BBC2C0] ">
       <header className="min-h-[40px] flex flex-col lg:flex-row gap-4 items-center mt-[48px] justify-between bg-red top-[60px]">
