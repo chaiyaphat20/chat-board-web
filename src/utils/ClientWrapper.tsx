@@ -1,6 +1,7 @@
 'use client'
 import { Session } from 'next-auth'
 import { getSession, SessionProvider } from 'next-auth/react'
+import { useMessages } from 'next-intl'
 import { CSSProperties, useEffect, useState } from 'react'
 import { ToastContainer, toast } from 'react-toastify'
 export default function ClientWrapper({ children }: { children: React.ReactNode }) {

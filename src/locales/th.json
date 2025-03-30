@@ -1,9 +1,9 @@
 {
   "SignIn": {
     "SignIn": "ล็อกอิน",
-    "SignOut": "ล็อกเอ้าท์"
+    "Username": "ชื่อผู้ใช้"
   },
-  "Todo": {
-    "Todo": "ทูดู"
+  "LocaleSwitcher": {
+    "switchLocale": "Th"
   }
 }

@@ -3,6 +3,8 @@ import { Geist, Geist_Mono } from 'next/font/google'
 import localFont from 'next/font/local'
 import './globals.css'
 import ClientWrapper from '@/utils/ClientWrapper'
+import { NextIntlClientProvider, useMessages } from 'next-intl'
+import { ReactNode } from 'react'
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -61,20 +63,23 @@ export const metadata: Metadata = {
   viewport: 'width=device-width, initial-scale=1, maximum-scale=5',
 }
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode
-}>) {
+type Props = {
+  children: ReactNode
+  params: { locale: string }
+}
+export default function RootLayout({ children, params: { locale } }: Props) {
+  const messages = useMessages()
   return (
-    <html lang="en" suppressHydrationWarning={true}>
+    <html lang={locale} suppressHydrationWarning={true}>
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${castoroRegular.variable} ${castoroItalic.variable} antialiased min-h-screen bg-background text-foreground selection:bg-primary/10`}
       >
         <ClientWrapper>
-          <div className="flex flex-col min-h-screen">
-            <main className="flex-1">{children}</main>
-          </div>
+          <NextIntlClientProvider locale={locale} messages={messages}>
+            <div className="flex flex-col min-h-screen">
+              <main className="flex-1">{children}</main>
+            </div>
+          </NextIntlClientProvider>
         </ClientWrapper>
       </body>
     </html>

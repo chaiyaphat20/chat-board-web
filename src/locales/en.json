@@ -1,9 +1,9 @@
 {
   "SignIn": {
     "SignIn": "Sign In",
-    "SignOut": "Sign Out"
+    "Username": "Username"
   },
-  "Todo": {
-    "Todo": "Todo"
+  "LocaleSwitcher": {
+    "switchLocale": "En"
   }
 }

@@ -6,6 +6,8 @@ import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 import CustomButton from '@/components/CustomButton'
 import CustomInput from '@/components/CustomInput'
+import { useTranslations } from 'next-intl'
+import LocaleSwitcher from '@/components/LocaleSwitcher'
 
 const LoginPage = () => {
   const [username, setUsername] = useState('user1') //user1, user2, user3
@@ -13,6 +15,7 @@ const LoginPage = () => {
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
   const router = useRouter()
+  const t = useTranslations('SignIn')
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -56,12 +59,13 @@ const LoginPage = () => {
             />
           </div>
           <h1 className="text-white mt-[27px] font-castoro-italic text-[28px]">a Board</h1>
+          <LocaleSwitcher />
         </header>
         <aside className="flex  flex-col items-start justify-center w-full h-full px-4 gap-[40px] lg:items-center lg:justify-center">
-          <h1 className="text-white text-2xl font-bold">Signin</h1>
+          <h1 className="text-white text-2xl font-bold">{t('SignIn')}</h1>
           <div className="flex flex-col w-full lg:w-[384px] gap-[20px]">
             <CustomInput
-              placeholder="Username"
+              placeholder={t('Username')}
               className="w-full"
               errorMsg={error}
               value={username}
@@ -71,7 +75,7 @@ const LoginPage = () => {
               }}
             />
             <CustomButton onClick={handleSubmit} variant="success" loading={loading}>
-              Sign In
+              {t('SignIn')}
             </CustomButton>
           </div>
         </aside>
