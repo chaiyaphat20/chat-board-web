@@ -3,30 +3,25 @@ import createIntlMiddleware from 'next-intl/middleware'
 import { NextRequest, NextResponse } from 'next/server'
 import { AppConfig } from './utils/Appconfig'
 
-const publicPages = [
-  '/login',
-  '/forgot-password',
-  '/sign-up',
-  '/reset-password/.*'
-]
+const publicPages = ['/login', '/forgot-password', '/sign-up', '/reset-password/.*']
 const intlMiddleware = createIntlMiddleware({
-  locales:AppConfig.locales,
+  locales: AppConfig.locales,
   localePrefix: AppConfig.localePrefix,
-  defaultLocale:AppConfig.defaultLocale
+  defaultLocale: AppConfig.defaultLocale,
 })
 
 const authMiddleware = withAuth(
   // Note that this callback is only invoked if
   // the `authorized` callback has returned `true`
   // and not for pages listed in `pages`.
-  (req) => intlMiddleware(req),
+  req => intlMiddleware(req),
   {
     callbacks: {
-      authorized: ({ token }) => token != null
+      authorized: ({ token }) => token != null,
     },
     pages: {
-      signIn: '/login'
-    }
+      signIn: '/login',
+    },
   }
 )
 
@@ -38,10 +33,22 @@ export default function middleware(req: NextRequest) {
   const isPublicPage = publicPathnameRegex.test(req.nextUrl.pathname)
 
   if (req.nextUrl.pathname === '/') {
-    const token = req.cookies.get('next-auth.session-token') || req.cookies.get('__Secure-next-auth.session-token')
-    console.log(token)
+    const token =
+      req.cookies.get('next-auth.session-token') ||
+      req.cookies.get('__Secure-next-auth.session-token')
     if (!token) {
       return NextResponse.redirect(new URL('/login', req.url))
+    } else {
+      return NextResponse.redirect(new URL('/home', req.url))
+    }
+  }
+
+  if (req.nextUrl.pathname === '/login') {
+    const token =
+      req.cookies.get('next-auth.session-token') ||
+      req.cookies.get('__Secure-next-auth.session-token')
+    if (token) {
+      return NextResponse.redirect(new URL('/home', req.url))
     }
   }
 
@@ -54,5 +61,5 @@ export default function middleware(req: NextRequest) {
 
 export const config = {
   // Skip all paths that should not be internationalized
-  matcher: ['/((?!api|_next|.*\\..*).*)']
+  matcher: ['/((?!api|_next|.*\\..*).*)'],
 }
