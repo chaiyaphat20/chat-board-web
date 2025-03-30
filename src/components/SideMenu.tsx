@@ -2,7 +2,8 @@
 import { signOut, useSession } from 'next-auth/react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { usePathname } from 'next/navigation'
 export interface MenuItemProps {
   id: string
   label: string
@@ -12,10 +13,17 @@ export interface MenuItemProps {
 const SideMenu: React.FC = () => {
   const [selectedMenuItem, setSelectedMenuItem] = useState('home')
   const route = useRouter()
+  const pathname = usePathname()
+  const currentPath = pathname.split('/')[1]
+  console.log('route::', currentPath)
 
   const handleLogout = async () => {
     await signOut({ callbackUrl: '/login' })
   }
+
+  useEffect(() => {
+    setSelectedMenuItem(currentPath)
+  }, [currentPath])
 
   const session = useSession()
   const userName = session.data?.user.username
