@@ -1,5 +1,7 @@
 'use client'
 
+import { AppConfig } from '@/utils/Appconfig'
+import { getActivePath } from '@/utils/locale'
 import { signOut, useSession } from 'next-auth/react'
 import Image from 'next/image'
 import { useRouter, usePathname } from 'next/navigation'
@@ -19,8 +21,7 @@ const SideMenu: React.FC = () => {
   const { data: sessionData } = useSession()
   const userName = sessionData?.user?.username
 
-  const currentPath = pathname === '/' ? 'home' : pathname.split('/')[1]
-
+  const currentPath = getActivePath(pathname, AppConfig.locales)
   useEffect(() => {
     setSelectedMenuItem(currentPath)
   }, [currentPath])

@@ -9,6 +9,8 @@ import CustomButton from './CustomButton'
 import { getSession, useSession } from 'next-auth/react'
 import Image from 'next/image'
 import { signOut } from 'next-auth/react'
+import { getActivePath } from '@/utils/locale'
+import { AppConfig } from '@/utils/Appconfig'
 const HeaderMenu = () => {
   const [isOpen, setIsOpen] = useState(false)
   const [selectedMenuItem, setSelectedMenuItem] = useState('home')
@@ -20,7 +22,7 @@ const HeaderMenu = () => {
   const session = useSession()
   const userName = session.data?.user.username
   const pathname = usePathname()
-  const currentPath = pathname === '/' ? 'home' : pathname.split('/')[1]
+  const currentPath = getActivePath(pathname, AppConfig.locales)
 
   useEffect(() => {
     setSelectedMenuItem(currentPath)
