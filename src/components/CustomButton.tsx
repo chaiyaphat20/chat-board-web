@@ -2,7 +2,7 @@ import React, { ButtonHTMLAttributes, CSSProperties } from 'react'
 import { ClipLoader } from 'react-spinners'
 
 interface CustomButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'secondary' | 'success' | 'outline'
+  variant?: 'primary' | 'secondary' | 'success' | 'outline' | 'danger'
   loading?: boolean
 }
 
@@ -37,7 +37,6 @@ const CustomButton: React.FC<CustomButtonProps> = ({
     justify-center
   `
 
-  // Variant-specific styles
   const variantStyles = {
     primary: `
       bg-success
@@ -62,6 +61,9 @@ const CustomButton: React.FC<CustomButtonProps> = ({
       border-[#49A569]
       text-[#49A569]
       hover:bg-[#49A569]/10
+    `,
+    danger: `
+     py-3 px-4 bg-red-500 hover:bg-red-600 text-white font-medium rounded-lg transition duration-200
     `,
   }
 

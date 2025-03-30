@@ -50,6 +50,16 @@ export function useOurBlog() {
     }
   }
 
+  const deletePostById = async (postId: string) => {
+    try {
+      await PostServices.deletePostById(postId)
+      setDeleteShowModal(false)
+      fetchPost(category)
+    } catch (error) {
+      console.error('Error fetching posts:', error)
+    }
+  }
+
   useEffect(() => {
     fetchPost(category)
   }, [category])
@@ -75,5 +85,8 @@ export function useOurBlog() {
     setSelectedPost,
     selectedPost,
     updatePost,
+    setDeleteShowModal,
+    showDeleteModal,
+    deletePostById,
   }
 }

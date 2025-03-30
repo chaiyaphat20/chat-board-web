@@ -61,4 +61,12 @@ export const PostServices = {
       throw error
     }
   },
+  deletePostById: async (postId: string): Promise<string> => {
+    try {
+      const response = await apiClient.delete<ApiResponse<string>>(`/posts/${postId}`)
+      return response.data.data
+    } catch (error) {
+      throw error
+    }
+  },
 }

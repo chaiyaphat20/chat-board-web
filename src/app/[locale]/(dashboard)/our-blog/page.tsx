@@ -9,6 +9,7 @@ import SearchInputCustom from '@/components/SearchInputCustom'
 import { useOurBlog } from './hooks/usePosts'
 import CreatePostModal from '../home/components/CreatePostModal'
 import { UpdatePostBody } from '@/libs/api/post/update-post'
+import DeleteConfirmationModal from './components/DeleteConfirmationModal'
 
 export default function Home() {
   const {
@@ -24,6 +25,9 @@ export default function Home() {
     selectedPost,
     setSelectedPost,
     updatePost,
+    setDeleteShowModal,
+    showDeleteModal,
+    deletePostById,
   } = useOurBlog()
 
   const router = useRouter()
@@ -66,7 +70,8 @@ export default function Home() {
                 setEditShowModal(true)
               }}
               onClickDelete={post => {
-                console.log({ post })
+                setSelectedPost(post)
+                setDeleteShowModal(true)
               }}
             />
           )
@@ -107,6 +112,15 @@ export default function Home() {
           }}
         />
       )}
+      <DeleteConfirmationModal
+        isOpen={showDeleteModal}
+        onClose={() => {
+          setDeleteShowModal(false)
+        }}
+        onDelete={() => {
+          deletePostById('' + selectedPost?.id)
+        }}
+      />
     </div>
   )
 }
