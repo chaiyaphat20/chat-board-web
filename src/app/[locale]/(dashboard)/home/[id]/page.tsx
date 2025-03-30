@@ -103,14 +103,7 @@ function Page({ params }: { params: Promise<{ id: string }> }) {
         </header>
         <section className="mt-10 flex flex-col gap-2.5">
           <div className="flex flex-row gap-2.5 items-center">
-            <Image
-              alt={`${postWithComment.user.fullName}'s avatar`}
-              className="object-contain rounded-full"
-              width={48}
-              height={48}
-              src={'/assets/picture/Avatar.png'}
-              priority
-            />
+            <Image src={'/assets/svg/Avatar.svg'} alt="avatar" width={48} height={48} />
             <div className="font-medium">{postWithComment.user.fullName}</div>
             <p className="text-[#939494] text-sm">{timeAgo(postWithComment.created_at)}</p>
           </div>
