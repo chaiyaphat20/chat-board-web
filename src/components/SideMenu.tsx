@@ -1,4 +1,6 @@
 'use client'
+import { signOut, useSession } from 'next-auth/react'
+import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
 export interface MenuItemProps {
@@ -10,6 +12,13 @@ export interface MenuItemProps {
 const SideMenu: React.FC = () => {
   const [selectedMenuItem, setSelectedMenuItem] = useState('home')
   const route = useRouter()
+
+  const handleLogout = async () => {
+    await signOut({ callbackUrl: '/login' })
+  }
+
+  const session = useSession()
+
   const menuItems: MenuItemProps[] = [
     {
       id: 'home',
@@ -84,6 +93,12 @@ const SideMenu: React.FC = () => {
             </h3>
           </div>
         ))}
+        {!session && (
+          <div className="ml-[28px] mt-40 flex gap-3 cursor-pointer" onClick={handleLogout}>
+            <Image alt="" src={'/assets/svg/logout-black.svg'} width={25} height={25} />
+            <p className="text-text-primary font-bold">Logout</p>
+          </div>
+        )}
       </div>
     </aside>
   )

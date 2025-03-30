@@ -5,11 +5,21 @@ import { Menu, X } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { MenuItemProps } from './SideMenu'
 import { useRouter } from 'next/navigation'
-
+import CustomButton from './CustomButton'
+import { getSession, useSession } from 'next-auth/react'
+import Image from 'next/image'
+import { signOut } from 'next-auth/react'
 const HeaderMenu = () => {
   const [isOpen, setIsOpen] = useState(false)
   const [selectedMenuItem, setSelectedMenuItem] = useState('home')
   const router = useRouter()
+  const handleLogout = async () => {
+    await signOut({ callbackUrl: '/login' })
+  }
+
+  const session = useSession()
+  const userName = session.data?.user.username
+
   const menuItems: MenuItemProps[] = [
     {
       id: 'home',
@@ -62,6 +72,15 @@ const HeaderMenu = () => {
         <button onClick={() => setIsOpen(true)} className=" lg:hidden">
           <Menu size={20} />
         </button>
+
+        {!userName ? (
+          <CustomButton className="hidden lg:block">Sign In</CustomButton>
+        ) : (
+          <div className="gap-[20px] hidden lg:flex  items-center justify-center">
+            <p>{userName}</p>
+            <div className="size-[40px] rounded-full bg-green-100" />
+          </div>
+        )}
       </header>
 
       {/* Overlay */}
@@ -136,6 +155,20 @@ const HeaderMenu = () => {
                     </div>
                   )
                 })}
+                <div className="w-full bg-gray-100 h-0.5" />
+                <div
+                  className="ml-[28px] mt-30 flex gap-3 cursor-pointer"
+                  onClick={() => {
+                    if (session) {
+                      handleLogout()
+                    } else {
+                      router.replace('/login')
+                    }
+                  }}
+                >
+                  <Image alt="" src={'/assets/svg/logout-white.svg'} width={25} height={25} />
+                  <p className="text-gray-300 font-bold">{!session ? 'Logout' : 'Login'}</p>
+                </div>
               </ul>
             </nav>
           </motion.div>
