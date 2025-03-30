@@ -143,25 +143,23 @@ function Page({ params }: { params: Promise<{ id: string }> }) {
                 </div>
               </div>
             )}
-            {isAddingComment && (
-              <div className="lg:hidden block">
-                <AddCommentsModal
-                  isOpen
-                  onClose={() => {
-                    closeCommentBox()
-                  }}
-                  onSubmit={comment => {
-                    submitComment(postWithComment.id, comment)
-                  }}
-                />
-              </div>
-            )}
           </main>
           <section className="mt-4 flex flex-col gap-6">
             {postWithComment.comments.map((item, index) => (
               <CardComment key={index} comment={item} />
             ))}
           </section>
+          <div className="lg:hidden block">
+            <AddCommentsModal
+              isOpen={isAddingComment}
+              onClose={() => {
+                closeCommentBox()
+              }}
+              onSubmit={comment => {
+                submitComment(postWithComment.id, comment)
+              }}
+            />
+          </div>
         </>
       ) : (
         <p>Loading...</p>
